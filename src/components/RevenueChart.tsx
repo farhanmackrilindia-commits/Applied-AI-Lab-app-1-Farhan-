@@ -35,19 +35,19 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
 
   // Color palettes
   const quarterColors: Record<string, { fill: string; border: string; glow: string }> = {
-    Q1: { fill: '#6366f1', border: '#818cf8', glow: 'rgba(99, 102, 241, 0.4)' },
-    Q2: { fill: '#38bdf8', border: '#7dd3fc', glow: 'rgba(56, 189, 248, 0.4)' },
-    Q3: { fill: '#10b981', border: '#34d399', glow: 'rgba(16, 185, 129, 0.5)' },
-    Q4: { fill: '#f59e0b', border: '#fbbf24', glow: 'rgba(245, 158, 11, 0.4)' },
+    Q1: { fill: '#FDBA74', border: '#FB923C', glow: 'rgba(251, 146, 60, 0.25)' },
+    Q2: { fill: '#FB923C', border: '#F97316', glow: 'rgba(249, 115, 22, 0.35)' },
+    Q3: { fill: '#EA580C', border: '#C2410C', glow: 'rgba(234, 88, 12, 0.45)' },
+    Q4: { fill: '#78716C', border: '#57534E', glow: 'rgba(120, 113, 108, 0.25)' },
   };
 
   const regionPalette = [
-    { fill: '#6366f1', border: '#818cf8' },
-    { fill: '#10b981', border: '#34d399' },
-    { fill: '#f59e0b', border: '#fbbf24' },
-    { fill: '#ec4899', border: '#f472b6' },
-    { fill: '#8b5cf6', border: '#a78bfa' },
-    { fill: '#06b6d4', border: '#22d3ee' },
+    { fill: '#EA580C', border: '#C2410C' },
+    { fill: '#F97316', border: '#EA580C' },
+    { fill: '#FDBA74', border: '#F97316' },
+    { fill: '#D97706', border: '#B45309' },
+    { fill: '#78716C', border: '#57534E' },
+    { fill: '#A8A29E', border: '#78716C' },
   ];
 
   // Maximum value for scaling
@@ -73,39 +73,39 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
   }));
 
   return (
-    <div className="rounded-2xl bg-slate-900 border border-slate-800 shadow-xl p-5 sm:p-6 space-y-4">
+    <div className="rounded-2xl bg-white border border-orange-200/90 p-5 sm:p-6 space-y-4">
       {/* Chart Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center space-x-2.5">
-          <div className="p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+          <div className="p-2 rounded-lg bg-orange-50 border border-orange-200 text-orange-600">
             <BarChart2 className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-slate-100">Total Revenue by Region &amp; Quarter</h3>
-            <p className="text-xs text-slate-400">
+            <h3 className="text-base font-bold text-stone-900">Total Revenue by Region &amp; Quarter</h3>
+            <p className="text-xs text-stone-500">
               Interactive visualization comparing sales volume across quarters with Q2 and Q3 emphasis
             </p>
           </div>
         </div>
 
         {/* View Mode Toggle Buttons */}
-        <div className="flex items-center space-x-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800 self-start sm:self-auto text-xs font-medium">
+        <div className="flex items-center space-x-1.5 bg-orange-50/80 p-1 rounded-xl border border-orange-200 self-start sm:self-auto text-xs font-medium">
           <button
             onClick={() => setViewMode('byRegion')}
-            className={`px-3 py-1.5 rounded-lg transition-all ${
+            className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 ${
               viewMode === 'byRegion'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-orange-600 text-white'
+                : 'text-stone-600 hover:text-stone-900 hover:bg-white/70'
             }`}
           >
             Quarters by Region
           </button>
           <button
             onClick={() => setViewMode('byQuarter')}
-            className={`px-3 py-1.5 rounded-lg transition-all ${
+            className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 ${
               viewMode === 'byQuarter'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-orange-600 text-white'
+                : 'text-stone-600 hover:text-stone-900 hover:bg-white/70'
             }`}
           >
             Regions by Quarter
@@ -113,10 +113,10 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
           {varianceResult.hasQ2AndQ3 && (
             <button
               onClick={() => setViewMode('variance')}
-              className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1 ${
+              className={`px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1 whitespace-nowrap shrink-0 ${
                 viewMode === 'variance'
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  ? 'bg-orange-600 text-white'
+                  : 'text-stone-600 hover:text-stone-900 hover:bg-white/70'
               }`}
             >
               <TrendingUp className="w-3.5 h-3.5" />
@@ -127,20 +127,20 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
       </div>
 
       {/* Legend & Note */}
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/60 text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-orange-200/70 text-xs">
         {viewMode === 'byRegion' && (
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-slate-400 font-medium text-[11px]">Quarters:</span>
+            <span className="text-stone-500 font-medium text-xs">Quarters:</span>
             {quarters.map((q) => {
-              const c = quarterColors[q] || { fill: '#94a3b8', border: '#cbd5e1', glow: '' };
+              const c = quarterColors[q] || { fill: '#A8A29E', border: '#78716C', glow: '' };
               const isQ2Q3 = q === 'Q2' || q === 'Q3';
               return (
                 <div key={q} className="flex items-center space-x-1.5">
                   <span
-                    className={`w-3 h-3 rounded-sm ${isQ2Q3 ? 'ring-1 ring-white/40' : ''}`}
+                    className={`w-3 h-3 rounded-sm ${isQ2Q3 ? 'ring-1 ring-orange-400' : ''}`}
                     style={{ backgroundColor: c.fill }}
                   />
-                  <span className={`text-[11px] font-medium ${isQ2Q3 ? 'text-slate-100 font-bold' : 'text-slate-400'}`}>
+                  <span className={`text-xs font-medium ${isQ2Q3 ? 'text-stone-900 font-bold' : 'text-stone-600'}`}>
                     {q} {q === 'Q2' ? '(Start)' : q === 'Q3' ? '(Variance End)' : ''}
                   </span>
                 </div>
@@ -151,13 +151,13 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
 
         {viewMode === 'byQuarter' && (
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-slate-400 font-medium text-[11px]">Regions:</span>
+            <span className="text-stone-500 font-medium text-xs">Regions:</span>
             {regions.map((reg, idx) => {
               const c = regionPalette[idx % regionPalette.length];
               return (
                 <div key={reg} className="flex items-center space-x-1.5">
                   <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: c.fill }} />
-                  <span className="text-slate-300 text-[11px] font-medium">{reg}</span>
+                  <span className="text-stone-700 text-xs font-medium">{reg}</span>
                 </div>
               );
             })}
@@ -166,18 +166,18 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
 
         {viewMode === 'variance' && (
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-1.5 text-emerald-400 text-xs">
-              <span className="w-3 h-3 rounded-sm bg-emerald-500" />
+            <div className="flex items-center space-x-1.5 text-orange-700 font-medium text-xs">
+              <span className="w-3 h-3 rounded-sm bg-orange-600" />
               <span>Revenue Growth (Q3 &gt; Q2)</span>
             </div>
-            <div className="flex items-center space-x-1.5 text-rose-400 text-xs">
-              <span className="w-3 h-3 rounded-sm bg-rose-500" />
+            <div className="flex items-center space-x-1.5 text-rose-700 font-medium text-xs">
+              <span className="w-3 h-3 rounded-sm bg-rose-600" />
               <span>Revenue Contraction (Q3 &lt; Q2)</span>
             </div>
           </div>
         )}
 
-        <div className="text-[11px] text-slate-500 italic">
+        <div className="text-xs text-stone-500">
           Hover over bars for exact currency and units sold
         </div>
       </div>
@@ -198,9 +198,9 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                   y1={tick.y}
                   x2="100%"
                   y2={tick.y}
-                  stroke="#334155"
+                  stroke="#FED7AA"
                   strokeDasharray="3 3"
-                  strokeOpacity="0.4"
+                  strokeOpacity="0.85"
                 />
                 <text
                   x={padding.left - 10}
@@ -208,7 +208,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                   textAnchor="end"
                   fontSize="10"
                   fontFamily="monospace"
-                  fill="#94a3b8"
+                  fill="#57534E"
                 >
                   ${Math.round(tick.value).toLocaleString('en-US')}
                 </text>
@@ -239,7 +239,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                         textAnchor="middle"
                         fontSize="11"
                         fontWeight="600"
-                        fill="#e2e8f0"
+                        fill="#1C1917"
                       >
                         {region}
                       </text>
@@ -253,8 +253,8 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                         const barY = padding.top + innerHeight - barHeight;
 
                         const colors = quarterColors[quarter] || {
-                          fill: '#6366f1',
-                          border: '#818cf8',
+                          fill: '#EA580C',
+                          border: '#C2410C',
                         };
                         const isSpecial = quarter === 'Q2' || quarter === 'Q3';
 
@@ -268,8 +268,8 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                               rx="3"
                               fill={colors.fill}
                               stroke={colors.border}
-                              strokeWidth={isSpecial ? '1.5' : '0.5'}
-                              className="transition-all duration-200 hover:opacity-90 cursor-pointer"
+                              strokeWidth={isSpecial ? '1.5' : '0.75'}
+                              className="transition-opacity duration-150 hover:opacity-85 cursor-pointer"
                               onMouseEnter={(e) => {
                                 const rect = e.currentTarget.getBoundingClientRect();
                                 setHoveredItem({
@@ -290,7 +290,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                               textAnchor="middle"
                               fontSize="9"
                               fontFamily="monospace"
-                              fill={isSpecial ? '#f8fafc' : '#94a3b8'}
+                              fill={isSpecial ? '#C2410C' : '#57534E'}
                               fontWeight={isSpecial ? 'bold' : 'normal'}
                             >
                               {quarter}
@@ -328,7 +328,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                         textAnchor="middle"
                         fontSize="12"
                         fontWeight="700"
-                        fill="#f1f5f9"
+                        fill="#1C1917"
                       >
                         {quarter}
                       </text>
@@ -354,7 +354,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                             fill={colors.fill}
                             stroke={colors.border}
                             strokeWidth="1"
-                            className="transition-all duration-200 hover:opacity-90 cursor-pointer"
+                            className="transition-opacity duration-150 hover:opacity-85 cursor-pointer"
                             onMouseEnter={(e) => {
                               const rect = e.currentTarget.getBoundingClientRect();
                               setHoveredItem({
@@ -396,7 +396,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                         y1={midY}
                         x2="100%"
                         y2={midY}
-                        stroke="#64748b"
+                        stroke="#A8A29E"
                         strokeWidth="1.5"
                       />
                       <text
@@ -405,7 +405,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                         textAnchor="end"
                         fontSize="10"
                         fontFamily="monospace"
-                        fill="#cbd5e1"
+                        fill="#57534E"
                       >
                         $0 Delta
                       </text>
@@ -431,7 +431,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                               textAnchor="middle"
                               fontSize="11"
                               fontWeight="600"
-                              fill="#f1f5f9"
+                              fill="#1C1917"
                             >
                               {reg.region}
                             </text>
@@ -443,10 +443,10 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                               width={barWidth}
                               height={Math.max(3, deltaHeight)}
                               rx="3"
-                              fill={isPositive ? '#10b981' : '#f43f5e'}
-                              stroke={isPositive ? '#34d399' : '#fb7185'}
+                              fill={isPositive ? '#EA580C' : '#E11D48'}
+                              stroke={isPositive ? '#C2410C' : '#BE123C'}
                               strokeWidth="1.5"
-                              className="cursor-pointer hover:opacity-90 transition-all"
+                              className="cursor-pointer hover:opacity-85 transition-opacity"
                               onMouseEnter={(e) => {
                                 const rect = e.currentTarget.getBoundingClientRect();
                                 setHoveredItem({
@@ -469,7 +469,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
                               fontSize="10"
                               fontFamily="monospace"
                               fontWeight="bold"
-                              fill={isPositive ? '#34d399' : '#fb7185'}
+                              fill={isPositive ? '#C2410C' : '#BE123C'}
                             >
                               {isPositive ? '+' : ''}
                               {formatCurrency(reg.dollarChange)}
@@ -489,21 +489,21 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
       {/* Floating Hover Tooltip */}
       {hoveredItem && (
         <div
-          className="fixed z-50 pointer-events-none transform -translate-x-1/2 -translate-y-full px-3 py-2 rounded-xl bg-slate-950/95 border border-slate-700 shadow-2xl text-xs backdrop-blur-md animate-in fade-in"
+          className="fixed z-50 pointer-events-none transform -translate-x-1/2 -translate-y-full px-3 py-2 rounded-xl bg-white/95 border border-orange-200 shadow-lg text-xs backdrop-blur-md tabular-nums"
           style={{ left: hoveredItem.x, top: hoveredItem.y }}
         >
-          <div className="font-semibold text-slate-100">{hoveredItem.title}</div>
-          <div className="text-slate-400 text-[11px]">{hoveredItem.subtitle}</div>
-          <div className="mt-1 flex items-center justify-between space-x-3 pt-1 border-t border-slate-800">
-            <span className="text-slate-400">Revenue:</span>
-            <span className="font-mono font-bold text-emerald-400">
+          <div className="font-semibold text-stone-900">{hoveredItem.title}</div>
+          <div className="text-stone-500 text-[11px]">{hoveredItem.subtitle}</div>
+          <div className="mt-1 flex items-center justify-between space-x-3 pt-1 border-t border-orange-100">
+            <span className="text-stone-500">Revenue:</span>
+            <span className="font-mono font-bold text-orange-700">
               {hoveredItem.value >= 0 ? '' : '-'}${Math.abs(Math.round(hoveredItem.value)).toLocaleString('en-US')}
             </span>
           </div>
           {hoveredItem.pctShare !== undefined && (
             <div className="flex items-center justify-between space-x-3 text-[11px]">
-              <span className="text-slate-400">Share / Delta:</span>
-              <span className="font-mono text-cyan-300">{formatPercentage(hoveredItem.pctShare, true)}</span>
+              <span className="text-stone-500">Share / Delta:</span>
+              <span className="font-mono font-semibold text-stone-800">{formatPercentage(hoveredItem.pctShare, true)}</span>
             </div>
           )}
         </div>

@@ -71,7 +71,7 @@ export default function App() {
   }, [filteredOrders]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-[#FFFBF7] text-stone-900 flex flex-col font-sans selection:bg-orange-500/20 selection:text-orange-950">
       {/* Top Navigation */}
       <Header
         orderCount={orders.length}
@@ -86,13 +86,13 @@ export default function App() {
       {/* Main Dashboard Body */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {/* Dataset Status Banner & Quick Switcher */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs">
-          <div className="flex items-center space-x-2 text-slate-300">
-            <Database className="w-4 h-4 text-indigo-400 shrink-0" />
-            <span className="text-slate-400">Current Dataset:</span>
-            <span className="font-semibold text-slate-100 truncate">{dataName}</span>
-            <span className="text-slate-500 hidden sm:inline">•</span>
-            <span className="text-slate-400 hidden sm:inline">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-white border border-orange-200/80 text-xs">
+          <div className="flex items-center space-x-2 text-stone-700">
+            <Database className="w-4 h-4 text-orange-600 shrink-0" />
+            <span className="text-stone-500">Current Dataset:</span>
+            <span className="font-semibold text-stone-900 truncate">{dataName}</span>
+            <span className="text-stone-300 hidden sm:inline">•</span>
+            <span className="text-stone-500 hidden sm:inline tabular-nums">
               {filteredOrders.length} records analyzed ({totalUnits.toLocaleString()} units)
             </span>
           </div>
@@ -100,15 +100,15 @@ export default function App() {
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setIsDrawerOpen(true)}
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium hover:underline flex items-center space-x-1"
+              className="text-xs text-orange-600 hover:text-orange-700 font-medium hover:underline flex items-center space-x-1 whitespace-nowrap shrink-0"
             >
               <FileSpreadsheet className="w-3.5 h-3.5" />
               <span>Explore Raw Orders</span>
             </button>
-            <span className="text-slate-700">|</span>
+            <span className="text-orange-200">|</span>
             <button
               onClick={() => setIsUploadOpen(true)}
-              className="text-xs text-slate-300 hover:text-white font-medium hover:underline flex items-center space-x-1"
+              className="text-xs text-stone-700 hover:text-orange-700 font-medium hover:underline flex items-center space-x-1 whitespace-nowrap shrink-0"
             >
               <Upload className="w-3.5 h-3.5" />
               <span>Upload New CSV</span>
@@ -143,13 +143,13 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-900/40 py-6 mt-12 text-center text-xs text-slate-500">
+      <footer className="border-t border-orange-200/80 bg-white py-6 mt-12 text-center text-xs text-stone-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-1">
-          <p className="text-slate-400 font-medium">
+          <p className="text-stone-800 font-medium">
             Quarterly Sales Insights &amp; Region Variance Analyzer
           </p>
-          <p className="text-[11px] text-slate-500">
-            Powered by Gemini 3.8 Flash API • Strict 3-sentence calculated grounding • Full-stack Express &amp; Vite
+          <p className="text-[11px] text-stone-500">
+            Quarterly regional revenue matrix &amp; grounded Q2-to-Q3 variance analysis
           </p>
         </div>
       </footer>
