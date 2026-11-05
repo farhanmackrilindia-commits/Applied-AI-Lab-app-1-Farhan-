@@ -1,8 +1,9 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import type { Request, Response } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI, ThinkingLevel } from '@google/genai';
 
 dotenv.config();
 
@@ -160,19 +161,38 @@ STRICT MANDATES:
 
     try {
       const timeoutPromise = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error('Gemini API timeout (8s limit)')), 8000)
+        setTimeout(() => reject(new Error('Gemini API timeout (15s limit)')), 15000)
       );
 
-      const apiPromise = ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: contextPrompt,
-        config: {
-          systemInstruction: 'You are an executive corporate financial analyst. Write exactly three sentences summarizing quarterly regional sales variance using only the supplied calculated numbers. Never invent outside figures.',
-          temperature: 0.2,
-        },
-      });
+      const callGeminiWithRetry = async () => {
+        const maxAttempts = 2;
+        let lastErr: unknown;
+        for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+          try {
+            return await ai.models.generateContent({
+              model: 'gemini-3.8-flash',
+              contents: contextPrompt,
+              config: {
+                systemInstruction: 'You are an executive corporate financial analyst. Write exactly three sentences summarizing quarterly regional sales variance using only the supplied calculated numbers. Never invent outside figures.',
+                thinkingConfig: {
+                  thinkingLevel: ThinkingLevel.LOW,
+                },
+              },
+            });
+          } catch (err: any) {
+            lastErr = err;
+            const status = err?.status || err?.error?.code;
+            if (attempt < maxAttempts && (status === 503 || status === 429)) {
+              await new Promise((r) => setTimeout(r, 500 * attempt));
+              continue;
+            }
+            throw err;
+          }
+        }
+        throw lastErr;
+      };
 
-      const response = await Promise.race([apiPromise, timeoutPromise]);
+      const response = await Promise.race([callGeminiWithRetry(), timeoutPromise]);
       outputText = response.text?.trim() || '';
     } catch (apiErr) {
       console.warn('Gemini API call error or timeout, utilizing strictly grounded verified summary:', apiErr);

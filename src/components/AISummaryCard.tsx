@@ -126,12 +126,12 @@ export const AISummaryCard: React.FC<AISummaryCardProps> = ({
     }
   };
 
-  // Initial load or when active target changes
+  // Initial load or when active target or filtered metrics change
   useEffect(() => {
     if (activeRegion && varianceResult.hasQ2AndQ3) {
       fetchAiSummary(activeRegion);
     }
-  }, [activeRegion?.region, varianceResult.hasQ2AndQ3]);
+  }, [activeRegion?.region, activeRegion?.q2Revenue, activeRegion?.q3Revenue, varianceResult.hasQ2AndQ3]);
 
   const handleCopy = () => {
     if (!aiSummary) return;
