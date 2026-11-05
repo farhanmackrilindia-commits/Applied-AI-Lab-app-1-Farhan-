@@ -1,0 +1,6 @@
+{
+  "name": "Quarterly Sales Insights & Region Variance Analyzer",
+  "description": "Upload sales order CSV data to visualize revenue by region and quarter with interactive charts, matrix tables, and AI-powered Q2-to-Q3 variance narratives grounded in calculated metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
